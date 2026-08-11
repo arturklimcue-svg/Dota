@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контр-пики Dota 2</title>
+  <link rel="stylesheet" href="styles.css?v=20260810e">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="logo">Dota 2 <span>Контр-пики</span></h1>
+    <input id="search" type="text" placeholder="Поиск героя..." autocomplete="off">
+    <div class="top-actions">
+      <button id="teamBtn" class="pill-btn" title="Подобрать контр-пики против команды врагов">Против тима</button>
+      <div id="source" class="source" title="Источник данных">загрузка…</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="heroGrid">
+      <div id="gridFilters" class="filters">
+        <div class="filter-group" id="attrFilter">
+          <button class="chip active" data-attr="">Все</button>
+          <button class="chip" data-attr="str">Сила</button>
+          <button class="chip" data-attr="agi">Ловкость</button>
+          <button class="chip" data-attr="int">Инт</button>
+          <button class="chip" data-attr="all">Универсал</button>
+        </div>
+        <div class="filter-group" id="roleFilter">
+          <button class="chip active" data-role="">Все роли</button>
+          <button class="chip" data-role="Carry">Carry</button>
+          <button class="chip" data-role="Support">Support</button>
+          <button class="chip" data-role="Initiator">Initiator</button>
+          <button class="chip" data-role="Nuker">Nuker</button>
+          <button class="chip" data-role="Disabler">Disabler</button>
+          <button class="chip" data-role="Durable">Durable</button>
+          <button class="chip" data-role="Escape">Escape</button>
+          <button class="chip" data-role="Pusher">Pusher</button>
+        </div>
+      </div>
+      <div class="grid" id="heroList"></div>
+      <div class="empty" id="noResults" hidden>Героев не найдено</div>
+    </section>
+
+    <section id="heroView" class="hero-view" hidden>
+      <button id="backBtn" class="back-btn">← Все герои</button>
+
+      <div class="hero-main" id="heroMain"></div>
+
+      <div id="poolCounters" class="pool-counters" hidden></div>
+
+      <div class="counters-head">
+        <h2>Контр-пики</h2>
+        <span id="countersMeta" class="counters-meta"></span>
+      </div>
+      <div id="stageFilter" class="filters stage-filter">
+        <button class="chip active" data-stage="">Все</button>
+        <button class="chip" data-stage="line">Линия</button>
+        <button class="chip" data-stage="mid">Мид</button>
+        <button class="chip" data-stage="late">Лейт</button>
+      </div>
+      <div class="grid counters" id="countersList"></div>
+      <div class="empty" id="noCounters" hidden>Нет данных о контр-пиках</div>
+      <div id="stageReason" class="stage-reason" hidden></div>
+    </section>
+
+    <section id="teamView" class="hero-view" hidden>
+      <button id="teamBackBtn" class="back-btn">← Все герои</button>
+
+      <div class="team-head">
+        <h2>Против тима</h2>
+        <span id="teamHint" class="counters-meta">Выберите до 5 вражеских героев</span>
+      </div>
+      <div id="teamEnemies" class="team-enemies"></div>
+
+      <div class="team-pick">
+        <h3>Выберите вражеских героев</h3>
+        <input id="teamSearch" type="text" placeholder="Поиск врага..." autocomplete="off">
+        <div class="grid" id="teamPickGrid"></div>
+      </div>
+
+      <div class="counters-head">
+        <h2>Лучшие контр-пики</h2>
+        <button id="teamCopyBtn" class="pill-btn" hidden>Копировать драфт</button>
+      </div>
+      <div id="teamCounters" class="grid counters"></div>
+      <div class="empty" id="teamNoSel" hidden>Сначала выберите вражеских героев</div>
+    </section>
+  </main>
+
+  <div id="reasonModal" class="modal" hidden>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-stage" id="modalStage"></div>
+      <div class="modal-text" id="modalText"></div>
+      <div class="modal-stat" id="modalStat"></div>
+    </div>
+  </div>
+
+  <div id="compareModal" class="modal" hidden>
+    <div class="modal-backdrop" id="compareBackdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close" id="compareClose" aria-label="Закрыть">×</button>
+      <div class="modal-title">Сравнить с <b id="compareBase"></b></div>
+      <input id="compareSearch" type="text" placeholder="Выберите второго героя..." autocomplete="off">
+      <div class="grid mini" id="comparePick"></div>
+      <div id="compareResult"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="heroes-data.js?v=20260810e"></script>
+  <script src="counters.js?v=20260810e"></script>
+  <script src="reasons.js?v=20260810e"></script>
+  <script src="stage-data.js?v=20260810e"></script>
+  <script src="stages.js?v=20260810e"></script>
+  <script src="stage-texts.js?v=20260810e"></script>
+  <script src="app.js?v=20260810e"></script>
+</body>
+</html>
