@@ -360,7 +360,22 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "doom_bringer__bristleback": [
+ "legion_commander__bristleback": [
+  "mid",
+  "late"
+ ],
+ "slark__bristleback": [
+  "line",
+  "mid",
+  "late"
+ ],
+ "nyx_assassin__bristleback": [
+  "mid"
+ ],
+ "necrolyte__bristleback": [
+  "late"
+ ],
+ "ancient_apparition__bristleback": [
   "mid",
   "late"
  ],
@@ -369,24 +384,9 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "shadow_demon__bristleback": [
+ "antimage__bristleback": [
   "mid",
   "late"
- ],
- "ancient_apparition__bristleback": [
-  "mid",
-  "late"
- ],
- "necrolyte__bristleback": [
-  "late"
- ],
- "slark__bristleback": [
-  "line",
-  "mid",
-  "late"
- ],
- "batrider__bristleback": [
-  "mid"
  ],
  "earthshaker__broodmother": [
   "mid",
@@ -941,17 +941,16 @@ window.STAGES = {
  "disruptor__enigma": [
   "mid"
  ],
- "doom_bringer__faceless_void": [
-  "mid",
-  "late"
+ "night_stalker__faceless_void": [
+  "mid"
  ],
- "bloodseeker__faceless_void": [
+ "legion_commander__faceless_void": [
+  "mid"
+ ],
+ "meepo__faceless_void": [
   "mid"
  ],
  "axe__faceless_void": [
-  "mid"
- ],
- "nyx_assassin__faceless_void": [
   "mid"
  ],
  "slark__faceless_void": [
@@ -959,12 +958,8 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "spirit_breaker__faceless_void": [
+ "lion__faceless_void": [
   "mid"
- ],
- "bristleback__faceless_void": [
-  "mid",
-  "late"
  ],
  "earthshaker__furion": [
   "mid",
@@ -990,32 +985,21 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "nyx_assassin__grimstroke": [
-  "mid"
- ],
- "slark__grimstroke": [
-  "line",
+ "spectre__grimstroke": [
   "mid",
   "late"
  ],
- "riki__grimstroke": [
-  "line",
-  "mid",
-  "late"
- ],
- "pudge__grimstroke": [
+ "shadow_shaman__grimstroke": [
   "mid"
  ],
- "antimage__grimstroke": [
+ "sniper__grimstroke": [
   "late"
  ],
- "storm_spirit__grimstroke": [
+ "clinkz__grimstroke": [
   "mid"
  ],
- "bounty_hunter__grimstroke": [
-  "line",
-  "mid",
-  "late"
+ "lycan__grimstroke": [
+  "mid"
  ],
  "riki__gyrocopter": [
   "line",
@@ -1284,28 +1268,29 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "drow_ranger__legion_commander": [
-  "late"
- ],
- "slark__legion_commander": [
+ "silencer__legion_commander": [
   "line",
   "mid",
   "late"
  ],
- "windrunner__legion_commander": [
+ "pugna__legion_commander": [
   "mid"
+ ],
+ "skeleton_king__legion_commander": [
+  "mid",
+  "late"
+ ],
+ "winter_wyvern__legion_commander": [
+  "mid"
+ ],
+ "obsidian_destroyer__legion_commander": [
+  "mid"
+ ],
+ "drow_ranger__legion_commander": [
+  "late"
  ],
  "shadow_shaman__legion_commander": [
   "mid"
- ],
- "medusa__legion_commander": [
-  "late"
- ],
- "tinker__legion_commander": [
-  "late"
- ],
- "sniper__legion_commander": [
-  "late"
  ],
  "nyx_assassin__leshrac": [
   "mid"
@@ -1787,25 +1772,25 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "doom_bringer__necrolyte": [
-  "mid"
- ],
- "viper__necrolyte": [
-  "line",
+ "grimstroke__necrolyte": [
   "mid",
   "late"
  ],
- "axe__necrolyte": [
+ "keeper_of_the_light__necrolyte": [
+  "mid"
+ ],
+ "skywrath_mage__necrolyte": [
+  "mid"
+ ],
+ "pugna__necrolyte": [
   "mid"
  ],
  "lina__necrolyte": [
   "mid"
  ],
- "tinker__necrolyte": [
+ "muerta__necrolyte": [
+  "mid",
   "late"
- ],
- "storm_spirit__necrolyte": [
-  "mid"
  ],
  "storm_spirit__nevermore": [
   "mid"
@@ -2764,28 +2749,29 @@ window.STAGES = {
  "nyx_assassin__techies": [
   "mid"
  ],
- "sniper__templar_assassin": [
+ "spectre__templar_assassin": [
   "late"
  ],
- "storm_spirit__templar_assassin": [
-  "mid"
- ],
- "nyx_assassin__templar_assassin": [
-  "mid"
- ],
- "lina__templar_assassin": [
-  "mid"
- ],
- "pudge__templar_assassin": [
-  "mid"
- ],
- "axe__templar_assassin": [
-  "mid"
- ],
- "zuus__templar_assassin": [
-  "line",
+ "phantom_lancer__templar_assassin": [
   "mid",
   "late"
+ ],
+ "phoenix__templar_assassin": [
+  "mid"
+ ],
+ "medusa__templar_assassin": [
+  "late"
+ ],
+ "legion_commander__templar_assassin": [
+  "mid"
+ ],
+ "viper__templar_assassin": [
+  "line",
+  "mid"
+ ],
+ "venomancer__templar_assassin": [
+  "line",
+  "mid"
  ],
  "earthshaker__terrorblade": [
   "mid",
@@ -3404,6 +3390,12 @@ window.STAGES = {
  "viper__faceless_void": [
   "line"
  ],
+ "doom_bringer__faceless_void": [
+  "late"
+ ],
+ "tinker__faceless_void": [
+  "late"
+ ],
  "shredder__furion": [
   "line"
  ],
@@ -3412,6 +3404,12 @@ window.STAGES = {
  ],
  "bloodseeker__furion": [
   "late"
+ ],
+ "nyx_assassin__grimstroke": [
+  "line"
+ ],
+ "batrider__grimstroke": [
+  "line"
  ],
  "shredder__gyrocopter": [
   "line"
@@ -3606,9 +3604,6 @@ window.STAGES = {
   "line"
  ],
  "slardar__templar_assassin": [
-  "line"
- ],
- "viper__templar_assassin": [
   "line"
  ],
  "bristleback__templar_assassin": [

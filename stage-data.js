@@ -292,25 +292,25 @@ window.STAGE_COUNTERS = {
  },
  "bristleback": {
   line: [
-   "viper",
    "slark",
+   "viper",
    "lina"
   ],
   mid: [
-   "doom_bringer",
-   "viper",
-   "shadow_demon",
-   "ancient_apparition",
+   "legion_commander",
    "slark",
-   "batrider"
+   "nyx_assassin",
+   "ancient_apparition",
+   "viper",
+   "antimage"
   ],
   late: [
-   "doom_bringer",
-   "viper",
-   "shadow_demon",
-   "ancient_apparition",
+   "legion_commander",
+   "slark",
    "necrolyte",
-   "slark"
+   "ancient_apparition",
+   "viper",
+   "antimage"
   ]
  },
  "broodmother": {
@@ -765,18 +765,17 @@ window.STAGE_COUNTERS = {
    "viper"
   ],
   mid: [
-   "doom_bringer",
-   "bloodseeker",
+   "night_stalker",
+   "legion_commander",
+   "meepo",
    "axe",
-   "nyx_assassin",
    "slark",
-   "spirit_breaker",
-   "bristleback"
+   "lion"
   ],
   late: [
-   "doom_bringer",
    "slark",
-   "bristleback"
+   "doom_bringer",
+   "tinker"
   ]
  },
  "furion": {
@@ -802,23 +801,18 @@ window.STAGE_COUNTERS = {
  },
  "grimstroke": {
   line: [
-   "slark",
-   "riki",
-   "bounty_hunter"
+   "nyx_assassin",
+   "batrider"
   ],
   mid: [
-   "nyx_assassin",
-   "slark",
-   "riki",
-   "pudge",
-   "storm_spirit",
-   "bounty_hunter"
+   "spectre",
+   "shadow_shaman",
+   "clinkz",
+   "lycan"
   ],
   late: [
-   "slark",
-   "riki",
-   "antimage",
-   "bounty_hunter"
+   "spectre",
+   "sniper"
   ]
  },
  "gyrocopter": {
@@ -1036,21 +1030,22 @@ window.STAGE_COUNTERS = {
  },
  "legion_commander": {
   line: [
-   "slark",
+   "silencer",
    "shredder",
    "viper"
   ],
   mid: [
-   "slark",
-   "windrunner",
+   "silencer",
+   "pugna",
+   "skeleton_king",
+   "winter_wyvern",
+   "obsidian_destroyer",
    "shadow_shaman"
   ],
   late: [
-   "drow_ranger",
-   "slark",
-   "medusa",
-   "tinker",
-   "sniper"
+   "silencer",
+   "skeleton_king",
+   "drow_ranger"
   ]
  },
  "leshrac": {
@@ -1436,22 +1431,22 @@ window.STAGE_COUNTERS = {
  },
  "necrolyte": {
   line: [
-   "viper",
    "silencer",
    "queenofpain"
   ],
   mid: [
    "ancient_apparition",
-   "doom_bringer",
-   "viper",
-   "axe",
+   "grimstroke",
+   "keeper_of_the_light",
+   "skywrath_mage",
+   "pugna",
    "lina",
-   "storm_spirit"
+   "muerta"
   ],
   late: [
    "ancient_apparition",
-   "viper",
-   "tinker"
+   "grimstroke",
+   "muerta"
   ]
  },
  "nevermore": {
@@ -2232,21 +2227,21 @@ window.STAGE_COUNTERS = {
  },
  "templar_assassin": {
   line: [
-   "zuus",
-   "slardar",
-   "viper"
+   "viper",
+   "venomancer",
+   "slardar"
   ],
   mid: [
-   "storm_spirit",
-   "nyx_assassin",
-   "lina",
-   "pudge",
-   "axe",
-   "zuus"
+   "phantom_lancer",
+   "phoenix",
+   "legion_commander",
+   "viper",
+   "venomancer"
   ],
   late: [
-   "sniper",
-   "zuus",
+   "spectre",
+   "phantom_lancer",
+   "medusa",
    "bristleback"
   ]
  },
@@ -2690,6 +2685,8 @@ window.STAGE_REASONS = {
  "nyx_assassin__spirit_breaker": "Nyx Assassin в лейте ломает инициацию: Spiked Carapace отражает Charge'ы, а Vendetta снимает SB. Контрит в лейте: Nyx делает каждую инициацию Spirit Breaker'а смертельной для него.",
  "medusa__spirit_breaker": "Medusa в лейте не даёт Spirit Breaker'у продавить — её HP и Stone Gaze превращают его Charge в смерть. Контрит в лейте: Medusa выдерживает инициации SB.",
  "disruptor__pangolier": "Disruptor в лейте ломает Pangolier'а: Glimpse возвращает его в драку, а Static Storm не даёт катить ульту. Контрит в лейте: Disruptor срывает каждую попытку Pango начать драку.",
+ "doom_bringer__faceless_void": "Doom молчит Void'а в лейте: под Doom'ом нет ни Time Walk, ни Chronosphere, а Infernal Blade снимает ему HP. Контрит в лейте: Doom выключает FV из решающей драки.",
+ "tinker__faceless_void": "Tinker в лейте снимает Void'а до Chrono: Hex и Laser держат его без Time Walk, а March не даёт ему подойти. Контрит в лейте: Tinker переигрывает FV на дистанции.",
  "shredder__bloodseeker": "Reactive Armor нейтрализует Bloodrage-трейды, а Whirling Death выжирает здоровье Bloodseeker'а с дистанции. Контрит на линии: Timbersaw переживает его давление и доминирует.",
  "windrunner__bloodseeker": "Powershot наносит много урона по одной цели, а Shackleshot не даёт Bloodseeker'у убежать от фокуса. Контрит на линии: Windranger продавливает его с безопасной позиции.",
  "undying__drow_ranger": "Decay снимает силу Drow и не даёт ей трейдить, а Tombstone не даёт ей убежать от прайма. Контрит на линии: Undying доминирует над Drow и не даёт ей фармить.",
@@ -2729,7 +2726,6 @@ window.STAGE_REASONS = {
  "lina__pugna": "Laguna Blade и Dragon Slave бьют по Pugna сквозь Decrepify дополнительным уроном от магии — Pugna умирает от её бурста. Контрит на линии: Lina переигрывает Pugna в кастах.",
  "huskar__pugna": "Berserker's Blood даёт Huskar'у стойкость к магии, и Burning Spears жгут Pugna, который не может его выбить. Контрит на линии: Huskar переживает Nether Blast и разбирает Pugna.",
  "slardar__templar_assassin": "Amplify Damage вешает на TA дебафф, который съедает Refraction'у и вскрывает Meld — TA умирает от фокуса. Контрит на линии: Slardar делает TA уязвимой и продавливает её.",
- "viper__templar_assassin": "Corrosive Skin медленно проедает Refraction'у, Nethertoxin брейкает её реген и давит линию. Контрит на линии: Viper переигрывает TA в длинных трейдах.",
  "shredder__luna": "Timbersaw переживает правки Luna за счёт Reactive Armor и режет ей силу, а Whirling Death давит её. Контрит на линии: Timbersaw доминирует над Luna и не даёт ей фармить.",
  "bristleback__dragon_knight": "Quill Spray копится от атак DK и бьёт сквозь его стойкость, а сам Bristleback не боится драконьего стана. Контрит на линии: Bristleback переигрывает Dragon Knight'а в затяжных трейдах.",
  "zuus__leshrac": "Zeus перехарассивает Leshrac'а с дистанции и наказывает его за попытки подойти на Lightning Storm. Контрит на линии: Zeus держит Leshrac'а на дистанции и не даёт ему кастовать.",
@@ -2801,5 +2797,7 @@ window.STAGE_REASONS = {
  "zuus__primal_beast": "Lightning Bolt бьёт Primal Beast'а бурстом и наказывает его за попытки инициировать. Контрит на линии: Zeus харассит Primal Beast'а с дистанции.",
  "shredder__muerta": "Reactive Armor переживает правки Muerta, а Whirling Death режет ей интеллект — ей не хватает маны. Контрит на линии: Timbersaw доминирует над Muerta.",
  "zuus__kez": "Lightning Bolt бьёт Kez'а в любой точке и наказывает его за агрессию. Контрит на линии: Zeus переигрывает Kez'а на дистанции.",
- "queenofpain__kez": "Shadow Strike доткает Kez'а и не даёт ему трейдить, а мобильность QoP спасает от его ульт. Контрит на линии: QoP доминирует над Kez."
+ "queenofpain__kez": "Shadow Strike доткает Kez'а и не даёт ему трейдить, а мобильность QoP спасает от его ульт. Контрит на линии: QoP доминирует над Kez.",
+ "nyx_assassin__grimstroke": "Nyx с Vendetta и Impale ловит Grimstroke'а на линии и убивает до Ink Swell, а Mana Burn сжигает его ману. Контрит на линии: Nyx не даёт ему зонировать.",
+ "batrider__grimstroke": "Sticky Napalm и Firefly дают Batrider'у контроль и урон, а Lasso вытаскивает Grimstroke'а из-под Ink Swell. Контрит на линии: Batrider переигрывает его и не даёт зонировать."
 };

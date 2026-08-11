@@ -30,7 +30,6 @@ module.exports = [
   { t: "pugna", c: "huskar", s: "line", r: "Berserker's Blood даёт Huskar'у стойкость к магии, и Burning Spears жгут Pugna, который не может его выбить. Контрит на линии: Huskar переживает Nether Blast и разбирает Pugna." },
   // Templar Assassin
   { t: "templar_assassin", c: "slardar", s: "line", r: "Amplify Damage вешает на TA дебафф, который съедает Refraction'у и вскрывает Meld — TA умирает от фокуса. Контрит на линии: Slardar делает TA уязвимой и продавливает её." },
-  { t: "templar_assassin", c: "viper", s: "line", r: "Corrosive Skin медленно проедает Refraction'у, Nethertoxin брейкает её реген и давит линию. Контрит на линии: Viper переигрывает TA в длинных трейдах." },
   // Luna
   { t: "luna", c: "shredder", s: "line", r: "Timbersaw переживает правки Luna за счёт Reactive Armor и режет ей силу, а Whirling Death давит её. Контрит на линии: Timbersaw доминирует над Luna и не даёт ей фармить." },
   // Dragon Knight

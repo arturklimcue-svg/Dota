@@ -15,4 +15,7 @@ module.exports = [
   { t: "spirit_breaker", c: "medusa", s: "late", r: "Medusa в лейте не даёт Spirit Breaker'у продавить — её HP и Stone Gaze превращают его Charge в смерть. Контрит в лейте: Medusa выдерживает инициации SB." },
   // Pangolier
   { t: "pangolier", c: "disruptor", s: "late", r: "Disruptor в лейте ломает Pangolier'а: Glimpse возвращает его в драку, а Static Storm не даёт катить ульту. Контрит в лейте: Disruptor срывает каждую попытку Pango начать драку." },
+  // Faceless Void
+  { t: "faceless_void", c: "doom_bringer", s: "late", r: "Doom молчит Void'а в лейте: под Doom'ом нет ни Time Walk, ни Chronosphere, а Infernal Blade снимает ему HP. Контрит в лейте: Doom выключает FV из решающей драки." },
+  { t: "faceless_void", c: "tinker", s: "late", r: "Tinker в лейте снимает Void'а до Chrono: Hex и Laser держат его без Time Walk, а March не даёт ему подойти. Контрит в лейте: Tinker переигрывает FV на дистанции." },
 ];

@@ -33,4 +33,7 @@ module.exports = [
   // Kez
   { t: "kez", c: "zuus", s: "line", r: "Lightning Bolt бьёт Kez'а в любой точке и наказывает его за агрессию. Контрит на линии: Zeus переигрывает Kez'а на дистанции." },
   { t: "kez", c: "queenofpain", s: "line", r: "Shadow Strike доткает Kez'а и не даёт ему трейдить, а мобильность QoP спасает от его ульт. Контрит на линии: QoP доминирует над Kez." },
+  // Grimstroke
+  { t: "grimstroke", c: "nyx_assassin", s: "line", r: "Nyx с Vendetta и Impale ловит Grimstroke'а на линии и убивает до Ink Swell, а Mana Burn сжигает его ману. Контрит на линии: Nyx не даёт ему зонировать." },
+  { t: "grimstroke", c: "batrider", s: "line", r: "Sticky Napalm и Firefly дают Batrider'у контроль и урон, а Lasso вытаскивает Grimstroke'а из-под Ink Swell. Контрит на линии: Batrider переигрывает его и не даёт зонировать." },
 ];
