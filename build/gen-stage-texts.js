@@ -40,20 +40,39 @@ for (const f of fs.readdirSync(path.join(__dirname, "facts")).sort()) {
 const ERR = [];
 const err = (m) => ERR.push(m);
 
+// ---- род героев (для согласования окончаний) ----
+const FEMALE = new Set([
+  "crystal_maiden", "drow_ranger", "lina", "vengefulspirit", "phantom_assassin",
+  "luna", "medusa", "mirana", "naga_siren", "queenofpain", "spectre",
+  "templar_assassin", "windrunner", "death_prophet", "enchantress", "broodmother",
+  "dawnbreaker", "muerta", "marci", "snapfire", "hoodwink", "winter_wyvern",
+  "legion_commander", "dark_willow",
+]);
+
+const PRON = (id) =>
+  FEMALE.has(id)
+    ? { nom: "она", gen: "её", dat: "ей", neg: "у неё", sney: "с ней", oblig: "обязана", strong: "сильна", overcome: "переросла" }
+    : { nom: "он", gen: "его", dat: "ему", neg: "у него", sney: "с ним", oblig: "обязан", strong: "силён", overcome: "перерос" };
+
+const mapFor = (id, name) => {
+  const p = PRON(id);
+  return { hero: name, hn: p.nom, hg: p.gen, hd: p.dat, hneg: p.neg, hsney: p.sney, hobl: p.oblig, hstrong: p.strong, hovercome: p.overcome };
+};
+
 // ---- текстовые заготовки ----
 const INTRO = {
   line: [
-    "Лейнинг — это первые минуты игры, и именно здесь {hero} страдает сильнее всего: у него нет ни предметов, ни уровней, чтобы компенсировать плохой старт.",
+    "Лейнинг — это первые минуты игры, и именно здесь {hero} страдает сильнее всего: {hneg} нет ни предметов, ни уровней, чтобы компенсировать плохой старт.",
     "На линии всё решают исходные статы, дальность атаки и то, насколько герой вообще может стоять против агрессивного давления.",
     "{hero} не может просто отсидеться на лайне, если противник выставил жёсткий контр-пик, — каждая ошибка превращается в невосполнимое отставание.",
   ],
   mid: [
-    "Мидгейм открывается, когда герои разбегаются по карте и начинается борьба за смоки, Рошана и контроль территории.",
-    "В мидгейме {hero} уже обязан отвечать за что-то — давать урон, держать лайны или участвовать в драках, — и именно здесь его слабые стороны становятся фатальными.",
-    "Если мидгейм уходит в минус, {hero} теряет карту целиком: с ним перестают считаться, и он просто не успевает вступить в свою сильную фазу.",
+    "Мидгейм открывается, когда герои разбегаются по карте и начинается борьба за смок-тайминги, Рошана и контроль территории.",
+    "В мидгейме {hero} уже {hobl} отвечать за что-то — давать урон, держать лайны или участвовать в драках, — и именно здесь {hg} слабые стороны становятся фатальными.",
+    "Если мидгейм уходит в минус, {hero} теряет карту целиком: с {hn} перестают считаться, и {hn} просто не успевает вступить в свою сильную фазу.",
   ],
   late: [
-    "В лейте игры решаются одной дракой — вокруг Рошана, на хайграунде или в борьбе за контроль очевидности.",
+    "В лейте игры всё решается одной дракой — вокруг Рошана, на хайграунде или в борьбе за контроль обзора.",
     "В поздней игре у {hero} меньше пространства для маневра: каждый выбранный предмет и каждая позиция в драке могут стать последними.",
     "Лейт прощает ошибки меньше всех остальных стадий, и если у противника есть готовый ответ на {hero}, отыграться становится почти невозможно.",
   ],
@@ -65,29 +84,30 @@ const LEAD = [
   "Особенно сильно {hero} ломает {c}.",
   "Из списка контр-пиков этой стадии выделяется {c}.",
   "Без {c} справиться с {hero} в этой стадии почти невозможно.",
-  "Отдельного внимания заслуживает {c} — он бьёт ровно по слабостям {hero}.",
+  "Отдельного внимания заслуживает {c} — {cn} бьёт ровно по слабостям {hero}.",
   "Если противник берёт {c}, {hero} теряет главный козырь этой стадии.",
 ];
 
 const TIE = [
-  "В этой стадии {c} делает это намного опаснее, потому что у {hero} ещё нет ни средств спасения, ни предметов на выживание.",
+  "В этой стадии {c} делает это намного опаснее, потому что {hneg} ещё нет ни средств спасения, ни предметов на выживание.",
   "Именно в этой фазе игры {c} получает всё, что нужно для работы против {hero}.",
   "Для {hero} этот контр особенно неприятен именно сейчас, когда каждый обмен решает исход.",
   "Темп этой стадии заставляет {hero} рисковать, и {c} этим пользуется.",
-  "Пока {hero} не перерос фазу, в которой {c} силён, каждая встреча с ним кончается одинаково.",
+  "Пока {hero} не {hovercome} фазу, в которой {c} {cs}, каждая встреча {hsney} кончается одинаково.",
   "В такой стадии {c} не даёт {hero} дышать и спокойно набирать форму.",
 ];
 
 const OUTRO = [
-  "Итог прост: пока {hero} не соберёт ответные предметы и не переживёт эту фазу, каждый бой против этих героев будет проигран ещё до его начала.",
+  "Итог прост: пока {hero} не соберёт ответные предметы и не переживёт эту фазу, каждый бой против этих героев будет проигран ещё до начала драки.",
   "Чтобы выжить в этой стадии против таких контр-пиков, {hero} придётся менять стиль игры и собираться в оборону — и даже тогда оставаться в невыгодном положении.",
-  "Именно поэтому под эту стадию {hero} закрывают эти герои: они бьют по самому уязвимому месту его таймингов, не давая ему войти в игру.",
+  "Именно поэтому под эту стадию {hero} закрывают эти герои: они бьют по самому уязвимому месту {hg} таймингов, не давая {hd} войти в игру.",
 ];
 
 const fill = (s, map) => s.replace(/\{(\w+)\}/g, (m, k) => map[k] || m);
 
 const STAGES = ["line", "mid", "late"];
 const out = {};
+const pairTexts = {}; // key(c__t)[stage] = короткое постадийное объяснение пары
 
 for (const h of Object.keys(facts)) {
   const f = facts[h];
@@ -97,12 +117,13 @@ for (const h of Object.keys(facts)) {
     continue;
   }
   out[h] = {};
+  const hm = mapFor(h, hero.ln);
   for (const s of STAGES) {
     const list = (sc[h] && sc[h][s]) || [];
     const sentences = [];
     const put = (arr) => {
       const txt = arr
-        .map((t) => fill(t, { hero: hero.ln }))
+        .map((t) => fill(t, hm))
         .join(" ")
         .trim();
       if (txt) sentences.push(txt);
@@ -110,8 +131,8 @@ for (const h of Object.keys(facts)) {
 
     const note = f[s] && f[s].trim();
     put(INTRO[s].slice(0, 2));
-    if (f.weak && f.weak.trim()) sentences.push(fill(f.weak.trim(), { hero: hero.ln }));
-    if (note) sentences.push(fill(note, { hero: hero.ln }));
+    if (f.weak && f.weak.trim()) sentences.push(fill(f.weak.trim(), hm));
+    if (note) sentences.push(fill(note, hm));
 
     let li = 0;
     let ti = 0;
@@ -121,18 +142,24 @@ for (const h of Object.keys(facts)) {
         err("стадийный контр неизвестен: " + cname + " -> " + h);
         return;
       }
+      const cm = mapFor(cname, c.ln);
       const pair = cname + "__" + h;
       const why = (reasons[pair] || stageReasons[pair] || "").trim();
-      const lead = fill(LEAD[li % LEAD.length], { hero: hero.ln, c: c.ln });
+      const lead = fill(LEAD[li % LEAD.length], Object.assign({}, hm, { c: c.ln, cn: cm.hn }));
       li++;
       sentences.push(lead);
       if (why) sentences.push(why);
-      const tie = fill(TIE[ti % TIE.length], { hero: hero.ln, c: c.ln });
+      const tie = fill(TIE[ti % TIE.length], Object.assign({}, hm, { c: c.ln, cs: cm.hstrong }));
       ti++;
       sentences.push(tie);
+
+      pairTexts[cname + "__" + h] = pairTexts[cname + "__" + h] || {};
+      pairTexts[cname + "__" + h][s] = (lead + " " + why + " " + tie)
+        .replace(/\s+/g, " ")
+        .trim();
     });
 
-    sentences.push(fill(OUTRO[0], { hero: hero.ln }));
+    sentences.push(fill(OUTRO[0], hm));
 
     out[h][s] = sentences.join(" ");
   }
@@ -156,10 +183,14 @@ for (const h of Object.keys(out)) {
 const header =
   "// stage-texts.js — сгенерировано build/gen-stage-texts.js.\n" +
   "// window.STAGE_TEXTS[герой][стадия] = длинное объяснение (15+ предложений),\n" +
-  "// почему этот герой контрится именно в этой стадии.\n";
+  "// почему этот герой контрится именно в этой стадии.\n" +
+  "// window.STAGE_PAIR_TEXTS[\"контрящий__контримый\"][стадия] = короткое объяснение\n" +
+  "// для кнопки «Почему?» на конкретном контр-пике.\n";
 const body =
   "window.STAGE_TEXTS = " +
   JSON.stringify(out, null, 1).replace(/\n/g, "\n").replace(/^(\s{2,})"([^"]+)":/gm, (m, i, k) => i + k + ":") +
+  ";\n\nwindow.STAGE_PAIR_TEXTS = " +
+  JSON.stringify(pairTexts, null, 1).replace(/\n/g, "\n").replace(/^(\s{2,})"([^"]+)":/gm, (m, i, k) => i + k + ":") +
   ";\n";
 fs.writeFileSync(path.join(ROOT, "stage-texts.js"), header + body);
 

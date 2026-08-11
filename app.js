@@ -424,7 +424,6 @@
       noCountersEl.hidden = false;
       noCountersEl.textContent = stage ? "Нет контр-пиков на эту стадию" : "Нет данных о контр-пиках";
       countersMetaEl.textContent = "";
-      renderStageReason(selected, stage);
       return;
     }
 
@@ -457,21 +456,6 @@
       countersListEl.appendChild(card);
     });
     applyLive();
-    renderStageReason(selected, stage);
-  }
-
-  function renderStageReason(selected, stage) {
-    const el = $("stageReason");
-    if (!stage || !window.STAGE_TEXTS || !window.STAGE_TEXTS[selected.name] || !window.STAGE_TEXTS[selected.name][stage]) {
-      el.hidden = true;
-      return;
-    }
-    const text = window.STAGE_TEXTS[selected.name][stage];
-    const label = { line: "Линия", mid: "Мид", late: "Лейт" }[stage];
-    el.innerHTML =
-      '<div class="stage-reason-head">Почему ' + escapeHtml(selected.ln) + ' контрится в стадии «' + label + '»</div>' +
-      '<div class="stage-reason-body">' + escapeHtml(text) + "</div>";
-    el.hidden = false;
   }
 
   function updateStageChips(hero) {
@@ -528,6 +512,13 @@
 
   function reasonFor(counterHero, selected, m) {
     const key = counterHero.name + "__" + selected.name;
+    if (currentStage) {
+      const pairText =
+        window.STAGE_PAIR_TEXTS &&
+        window.STAGE_PAIR_TEXTS[key] &&
+        window.STAGE_PAIR_TEXTS[key][currentStage];
+      if (pairText) return pairText;
+    }
     const custom =
       (window.STAGE_REASONS && window.STAGE_REASONS[key]) ||
       (window.REASONS && window.REASONS[key]);
@@ -551,8 +542,9 @@
   }
 
   function showReason(selected, m) {
+    const stageWord = currentStage ? " на стадии «" + STAGE_LABEL[currentStage] + "»" : "";
     const title =
-      "Почему <b>" + escapeHtml(m.hero.ln) + "</b> контрит <b>" + escapeHtml(selected.ln) + "</b>?";
+      "Почему <b>" + escapeHtml(m.hero.ln) + "</b> контрит <b>" + escapeHtml(selected.ln) + "</b>" + stageWord + "?";
     modalTitle.innerHTML = title;
     modalStage.innerHTML = stageBadges(m.hero, selected);
     modalText.textContent = reasonFor(m.hero, selected, m);
@@ -675,6 +667,7 @@
   // ---------- инструмент «против тима» ----------
 
   function openTeam() {
+    currentStage = "";
     teamViewEl.hidden = false;
     heroGridEl.hidden = true;
     heroViewEl.hidden = true;

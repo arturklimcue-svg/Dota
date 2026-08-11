@@ -159,24 +159,6 @@ main {
   border-radius: 10px;
 }
 
-.stage-reason {
-  margin-top: 16px;
-  padding: 14px 16px;
-  background: linear-gradient(160deg, rgba(91, 157, 255, .07), rgba(224, 138, 46, .05));
-  border: 1px solid rgba(91, 157, 255, .22);
-  border-radius: 10px;
-}
-.stage-reason-head {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.stage-reason-body {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-dim);
-  text-align: justify;
-}
-
 /* hero view */
 .hero-view {
   animation: fadeIn .2s ease;
