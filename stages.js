@@ -1268,11 +1268,6 @@ window.STAGES = {
   "mid",
   "late"
  ],
- "silencer__legion_commander": [
-  "line",
-  "mid",
-  "late"
- ],
  "pugna__legion_commander": [
   "mid"
  ],
@@ -1291,6 +1286,10 @@ window.STAGES = {
  ],
  "shadow_shaman__legion_commander": [
   "mid"
+ ],
+ "dazzle__legion_commander": [
+  "mid",
+  "late"
  ],
  "nyx_assassin__leshrac": [
   "mid"
@@ -2471,6 +2470,9 @@ window.STAGES = {
   "late"
  ],
  "lone_druid__silencer": [
+  "mid"
+ ],
+ "legion_commander__silencer": [
   "mid"
  ],
  "antimage__skeleton_king": [

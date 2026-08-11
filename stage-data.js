@@ -1030,22 +1030,21 @@ window.STAGE_COUNTERS = {
  },
  "legion_commander": {
   line: [
-   "silencer",
    "shredder",
    "viper"
   ],
   mid: [
-   "silencer",
    "pugna",
    "skeleton_king",
    "winter_wyvern",
    "obsidian_destroyer",
-   "shadow_shaman"
+   "shadow_shaman",
+   "dazzle"
   ],
   late: [
-   "silencer",
    "skeleton_king",
-   "drow_ranger"
+   "drow_ranger",
+   "dazzle"
   ]
  },
  "leshrac": {
@@ -1991,7 +1990,8 @@ window.STAGE_COUNTERS = {
    "pudge",
    "doom_bringer",
    "skywrath_mage",
-   "lone_druid"
+   "lone_druid",
+   "legion_commander"
   ],
   late: [
    "riki",
