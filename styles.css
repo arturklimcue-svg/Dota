@@ -506,7 +506,7 @@ main {
 
 /* подтверждение выбора в тренировке */
 .confirm-card {
-  max-width: 320px;
+  max-width: 420px;
   text-align: center;
 }
 
@@ -514,13 +514,13 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin: 16px 0 20px;
-  font-size: 17px;
+  gap: 12px;
+  margin: 18px 0 24px;
+  font-size: 19px;
 }
 
 .confirm-hero img {
-  width: 48px;
+  width: 56px;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 6px;
@@ -529,24 +529,25 @@ main {
 
 .confirm-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
 }
 
 .confirm-btn {
   flex: 1;
-  padding: 16px 0;
+  padding: 22px 0;
   border: none;
-  border-radius: 14px;
-  font-size: 20px;
-  font-weight: 800;
+  border-radius: 16px;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: .5px;
   cursor: pointer;
   transition: filter .12s ease, transform .12s ease;
 }
 
 .confirm-btn:hover {
   filter: brightness(1.1);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .confirm-cancel {
