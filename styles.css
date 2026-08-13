@@ -474,6 +474,109 @@ main {
   margin: 0 0 14px;
 }
 
+/* вкладки героя: контр-пики / связки */
+.hero-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.htab {
+  padding: 7px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+
+.htab:hover {
+  color: var(--text);
+  border-color: var(--accent-2);
+}
+
+.htab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* тренировка */
+.train-target {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.train-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.train-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.train-hero img {
+  width: 32px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+.train-feedback {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.train-feedback.ok {
+  border: 1px solid rgba(80, 200, 120, .5);
+  background: rgba(80, 200, 120, .12);
+  color: #7fd89a;
+}
+
+.train-feedback.bad {
+  border: 1px solid rgba(224, 82, 82, .5);
+  background: rgba(224, 82, 82, .12);
+  color: #ff9d9d;
+}
+
+.train-again {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .12s ease;
+}
+
+.train-again:hover {
+  border-color: var(--accent-2);
+}
+
 /* звёздочки избранного */
 .fav {
   position: absolute;

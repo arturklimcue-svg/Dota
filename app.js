@@ -30,7 +30,26 @@
   const noCountersEl = $("noCounters");
   const noResultsEl = $("noResults");
   const backBtn = $("backBtn");
-  const stageFilterEl = $("stageFilter");
+  const tabCountersEl = $("tabCounters");
+  const tabSynergiesEl = $("tabSynergies");
+  const countersPaneEl = $("countersPane");
+  const synergiesPaneEl = $("synergiesPane");
+  const synergiesListEl = $("synergiesList");
+  const synergiesMetaEl = $("synergiesMeta");
+  const noSynergiesEl = $("noSynergies");
+  const trainBtn = $("trainBtn");
+  const trainViewEl = $("trainView");
+  const trainBackBtn = $("trainBackBtn");
+  const trainHint = $("trainHint");
+  const trainQuiz = $("trainQuiz");
+  const trainTargetEl = $("trainTarget");
+  const trainFeedbackEl = $("trainFeedback");
+  const trainPickTitleEl = $("trainPickTitle");
+  const trainSearch = $("trainSearch");
+  const trainPickGridEl = $("trainPickGrid");
+  const trainStartBtn = $("trainStartBtn");
+  const trainResultEl = $("trainResult");
+  const trainNoSelEl = $("trainNoSel");
   const modal = $("reasonModal");
   const modalTitle = $("modalTitle");
   const modalStage = $("modalStage");
@@ -60,7 +79,8 @@
   let currentHero = null;
   let liveItems = {};
   let muPending = false;
-  let currentStage = "";
+  let trainTarget = null;
+  let trainAnswered = false;
   let gridAttr = "";
   let gridRole = "";
   let favs = loadFavs();
@@ -121,8 +141,10 @@
   }
 
   function stageOf(counter, selected) {
-    const st = window.STAGES && window.STAGES[counter.name + "__" + selected.name];
-    return st && st.length ? st : ["line", "mid", "late"];
+    const st =
+      window.PAIR_STAGES &&
+      window.PAIR_STAGES[counter.name + "__" + selected.name];
+    return st && st.length ? st : ["mid"];
   }
 
   function stageBadges(counter, selected) {
@@ -274,16 +296,13 @@
     heroGridEl.hidden = true;
     heroViewEl.hidden = false;
     teamViewEl.hidden = true;
+    trainViewEl.hidden = true;
     modal.hidden = true;
     compareModal.hidden = true;
     currentHero = hero;
     liveItems[hero.id] = null;
     muPending = true;
-    currentStage = "";
-    updateStageChips(hero);
-    stageFilterEl.querySelectorAll(".chip").forEach((c) =>
-      c.classList.toggle("active", !c.getAttribute("data-stage"))
-    );
+    showHeroTab("counters");
     window.scrollTo(0, 0);
 
     heroMainEl.innerHTML =
@@ -307,13 +326,24 @@
     $("heroCompareBtn").addEventListener("click", () => openCompare(hero));
 
     countersListEl.innerHTML = "";
+    synergiesListEl.innerHTML = "";
     noCountersEl.hidden = true;
+    noSynergiesEl.hidden = true;
     countersMetaEl.textContent = "Встроенная база…";
     setSource();
 
     renderPool(hero);
-    renderCounters(hero, currentStage);
+    renderCounters(hero);
+    renderSynergies(hero);
     loadMatchups(hero).then((items) => refreshWinrates(items));
+  }
+
+  function showHeroTab(tab) {
+    const counters = tab === "counters";
+    tabCountersEl.classList.toggle("active", counters);
+    tabSynergiesEl.classList.toggle("active", !counters);
+    countersPaneEl.hidden = !counters;
+    synergiesPaneEl.hidden = counters;
   }
 
   function renderPool(selected) {
@@ -415,22 +445,20 @@
     });
   }
 
-  function renderCounters(selected, stage) {
-    const source = stage === "" ? fallbackItems(selected) : stageItems(selected, stage);
+  function renderCounters(selected) {
+    const source = fallbackItems(selected);
     const list = source.filter(Boolean);
 
     if (!list.length) {
       countersListEl.innerHTML = "";
       noCountersEl.hidden = false;
-      noCountersEl.textContent = stage ? "Нет контр-пиков на эту стадию" : "Нет данных о контр-пиках";
+      noCountersEl.textContent = "Нет данных о контр-пиках";
       countersMetaEl.textContent = "";
       return;
     }
 
     countersMetaEl.textContent =
-      stage === ""
-        ? "встроенная база: механики способностей (стабильны от патча к патчу)"
-        : "контр-пики, сильные именно в этой стадии (состав может отличаться от общего списка)";
+      "встроенная база: механики способностей (стабильны от патча к патчу)";
     setSource();
 
     countersListEl.innerHTML = "";
@@ -458,14 +486,48 @@
     applyLive();
   }
 
-  function updateStageChips(hero) {
-    const sc = window.STAGE_COUNTERS;
-    const total = (window.COUNTERS && window.COUNTERS[hero.name]) || [];
-    stageFilterEl.querySelector('[data-stage=""]').textContent = "Все (" + total.length + ")";
-    [["line", "Линия"], ["mid", "Мид"], ["late", "Лейт"]].forEach(([s, label]) => {
-      const n = (sc && sc[hero.name] && sc[hero.name][s]) ? sc[hero.name][s].length : 0;
-      stageFilterEl.querySelector('[data-stage="' + s + '"]').textContent = label + " (" + n + ")";
+  function renderSynergies(selected) {
+    const syn = (window.SYNERGIES && window.SYNERGIES[selected.name]) || [];
+    synergiesListEl.innerHTML = "";
+    if (!syn.length) {
+      noSynergiesEl.hidden = false;
+      return;
+    }
+    noSynergiesEl.hidden = true;
+    synergiesListEl.innerHTML = "";
+    syn.forEach((s) => {
+      const hero = byName[s.hero];
+      if (!hero) return;
+      const card = document.createElement("div");
+      card.className = "counter-card";
+      card.title = hero.ln;
+      card.innerHTML =
+        '<img src="' + iconUrl(hero.name) + '" alt="' + escapeHtml(hero.ln) + '" loading="lazy">' +
+        '<div class="counter-body"><span class="cname">' + escapeHtml(hero.ln) +
+        '</span></div><button class="why" data-s="' + escapeHtml(hero.name) + '">Почему?</button>';
+      setImg(card.querySelector("img"), iconUrl(hero.name));
+      card
+        .querySelector(".why")
+        .addEventListener("click", (e) => {
+          e.stopPropagation();
+          showSynergyReason(selected, hero);
+        });
+      synergiesListEl.appendChild(card);
     });
+  }
+
+  function showSynergyReason(hero, partner) {
+    const key = hero.name + "__" + partner.name;
+    const text =
+      (window.SYNERGY_TEXTS && window.SYNERGY_TEXTS[key]) ||
+      (window.SYNERGY_TEXTS && window.SYNERGY_TEXTS[partner.name + "__" + hero.name]) ||
+      "";
+    modalTitle.innerHTML =
+      "Почему <b>" + escapeHtml(hero.ln) + "</b> силён с <b>" + escapeHtml(partner.ln) + "</b>?";
+    modalStage.innerHTML = "";
+    modalText.textContent = text || "Связка не описана.";
+    modalStat.textContent = "";
+    modal.hidden = false;
   }
 
   // применение реального винрейта OpenDota к уже отрисованным карточкам
@@ -493,9 +555,7 @@
     });
     if (updated) {
       countersMetaEl.textContent =
-        currentStage === ""
-          ? "встроенная база + реальный винрейт OpenDota (минимальный)"
-          : "контр-пики этой стадии + реальный винрейт OpenDota (минимальный)";
+        "встроенная база + реальный винрейт OpenDota (минимальный)";
       dataSource = "Встроенная база + OpenDota";
       setSource();
     }
@@ -512,14 +572,9 @@
 
   function reasonFor(counterHero, selected, m) {
     const key = counterHero.name + "__" + selected.name;
-    if (currentStage) {
-      const pairText =
-        window.STAGE_PAIR_TEXTS &&
-        window.STAGE_PAIR_TEXTS[key] &&
-        window.STAGE_PAIR_TEXTS[key][currentStage];
-      if (pairText) return pairText;
-    }
     const custom =
+      (window.STAGE_PAIR_TEXTS &&
+        window.STAGE_PAIR_TEXTS[key]) ||
       (window.STAGE_REASONS && window.STAGE_REASONS[key]) ||
       (window.REASONS && window.REASONS[key]);
     if (custom) return custom;
@@ -542,9 +597,8 @@
   }
 
   function showReason(selected, m) {
-    const stageWord = currentStage ? " на стадии «" + STAGE_LABEL[currentStage] + "»" : "";
     const title =
-      "Почему <b>" + escapeHtml(m.hero.ln) + "</b> контрит <b>" + escapeHtml(selected.ln) + "</b>" + stageWord + "?";
+      "Почему <b>" + escapeHtml(m.hero.ln) + "</b> контрит <b>" + escapeHtml(selected.ln) + "</b>?";
     modalTitle.innerHTML = title;
     modalStage.innerHTML = stageBadges(m.hero, selected);
     modalText.textContent = reasonFor(m.hero, selected, m);
@@ -667,10 +721,10 @@
   // ---------- инструмент «против тима» ----------
 
   function openTeam() {
-    currentStage = "";
     teamViewEl.hidden = false;
     heroGridEl.hidden = true;
     heroViewEl.hidden = true;
+    trainViewEl.hidden = true;
     modal.hidden = true;
     compareModal.hidden = true;
     teamSearch.value = "";
@@ -849,11 +903,114 @@
     }
   }
 
+  // ---------- тренировка ----------
+
+  function openTrain() {
+    trainViewEl.hidden = false;
+    heroGridEl.hidden = true;
+    heroViewEl.hidden = true;
+    teamViewEl.hidden = true;
+    modal.hidden = true;
+    compareModal.hidden = true;
+    trainSearch.value = "";
+    trainQuiz.hidden = true;
+    trainFeedbackEl.hidden = true;
+    trainResultEl.innerHTML = "";
+    trainNoSelEl.hidden = false;
+    trainTarget = null;
+    trainAnswered = false;
+    trainPickTitleEl.textContent = "Выберите контр-пик";
+    trainStartBtn.textContent = "Начать";
+    window.scrollTo(0, 0);
+    renderTrainPick();
+  }
+
+  function renderTrainPick() {
+    const q = trainSearch.value.trim().toLowerCase();
+    const list = (window.HEROES || [])
+      .filter(
+        (h) =>
+          !q ||
+          h.ln.toLowerCase().includes(q) ||
+          h.name.toLowerCase().includes(q) ||
+          h.roles.some((r) => r.toLowerCase().includes(q))
+      )
+      .sort((a, b) => a.ln.toLowerCase().localeCompare(b.ln.toLowerCase(), "ru"));
+    trainPickGridEl.innerHTML = "";
+    list.forEach((h) => {
+      const card = document.createElement("div");
+      card.className = "hero-card mini-card";
+      card.title = h.ln;
+      const img = document.createElement("img");
+      setImg(img, iconUrl(h.name));
+      img.alt = h.ln;
+      img.loading = "lazy";
+      card.appendChild(img);
+      card.addEventListener("click", () => selectTrainPick(h));
+      trainPickGridEl.appendChild(card);
+    });
+  }
+
+  function selectTrainPick(pick) {
+    if (!trainTarget) return;
+    if (trainAnswered) return;
+    const name = pick.name;
+    const counters = (window.COUNTERS && window.COUNTERS[trainTarget.name]) || [];
+    const isCounter = counters.includes(name);
+    const isTarget = pick.id === trainTarget.id;
+
+    trainAnswered = true;
+    trainFeedbackEl.hidden = false;
+    trainFeedbackEl.className = "train-feedback " + (isCounter ? "ok" : "bad");
+    trainFeedbackEl.innerHTML =
+      (isCounter
+        ? "✅ Верно! <b>" + escapeHtml(pick.ln) + "</b> контрит <b>" + escapeHtml(trainTarget.ln) + "</b>."
+        : isTarget
+          ? "❌ Это сам " + escapeHtml(trainTarget.ln) + ", а не его контр-пик."
+          : "❌ Неверно: <b>" + escapeHtml(pick.ln) + "</b> не является контр-пиком <b>" +
+            escapeHtml(trainTarget.ln) + "</b>.") +
+      '<div class="train-again" id="trainAgain">Заново</div>';
+
+    $("trainAgain").addEventListener("click", () => {
+      trainFeedbackEl.hidden = true;
+      trainAnswered = false;
+      startTrainRound();
+    });
+  }
+
+  function startTrainRound() {
+    const pool = (window.HEROES || []).filter((h) => {
+      const c = (window.COUNTERS && window.COUNTERS[h.name]) || [];
+      return c.length > 0;
+    });
+    if (!pool.length) {
+      showToast("Нет данных для тренировки");
+      return;
+    }
+    trainTarget = pool[Math.floor(Math.random() * pool.length)];
+    trainAnswered = false;
+    trainQuiz.hidden = false;
+    trainFeedbackEl.hidden = true;
+    trainResultEl.innerHTML = "";
+    trainNoSelEl.hidden = true;
+    trainStartBtn.textContent = "Новый герой";
+    trainPickTitleEl.textContent = "Выберите контр-пик для " + trainTarget.ln;
+    trainTargetEl.textContent = trainTarget.ln;
+    trainTargetEl.innerHTML =
+      '<img src="' + iconUrl(trainTarget.name) + '" alt=""> ' + escapeHtml(trainTarget.ln);
+    renderTrainPick();
+  }
+
+  function startTrain() {
+    startTrainRound();
+  }
+
   // ---------- события ----------
 
   searchEl.addEventListener("input", applySearch);
   teamSearch.addEventListener("input", renderTeamPick);
   compareSearch.addEventListener("input", renderComparePick);
+  trainSearch.addEventListener("input", renderTrainPick);
 
   backBtn.addEventListener("click", () => {
     heroViewEl.hidden = true;
@@ -874,12 +1031,25 @@
 
   teamCopyBtn.addEventListener("click", copyTeamDraft);
 
-  stageFilterEl.addEventListener("click", (e) => {
-    const btn = e.target.closest(".chip");
-    if (!btn) return;
-    currentStage = btn.getAttribute("data-stage") || "";
-    stageFilterEl.querySelectorAll(".chip").forEach((c) => c.classList.toggle("active", c === btn));
-    if (currentHero) renderCounters(currentHero, currentStage);
+  tabCountersEl.addEventListener("click", () => {
+    if (currentHero) {
+      showHeroTab("counters");
+      renderCounters(currentHero);
+    }
+  });
+  tabSynergiesEl.addEventListener("click", () => {
+    if (currentHero) {
+      showHeroTab("synergies");
+      renderSynergies(currentHero);
+    }
+  });
+
+  trainBtn.addEventListener("click", openTrain);
+  trainStartBtn.addEventListener("click", startTrain);
+  trainBackBtn.addEventListener("click", () => {
+    trainViewEl.hidden = true;
+    heroGridEl.hidden = false;
+    trainTarget = null;
   });
 
   function closeModal() {

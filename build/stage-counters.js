@@ -89,10 +89,26 @@ for (const target of Object.keys(counters)) {
 const header =
   "// stage-data.js — сгенерировано build/stage-counters.js.\n" +
   "// STAGE_COUNTERS[герой][стадия] = контр-пики, сильные именно в этой стадии.\n" +
+  "// PAIR_STAGES[\"контрящий__контримый\"] = стадии, в которых контр силён.\n" +
   "// STAGE_REASONS — пусто: объяснения генерируются из базы знаний.\n";
+
+// стадии каждой пары
+const pairStages = {};
+for (const target of Object.keys(sc)) {
+  for (const s of STAGES) {
+    for (const c of sc[target][s]) {
+      const key = c + "__" + target;
+      pairStages[key] = pairStages[key] || [];
+      if (!pairStages[key].includes(s)) pairStages[key].push(s);
+    }
+  }
+}
+
 const body =
   "window.STAGE_COUNTERS = " +
   JSON.stringify(sc, null, 1).replace(/\n/g, "\n").replace(/^(\s{2,})"([^"]+)":/gm, (m, i, k) => i + k + ":") +
+  ";\n\nwindow.PAIR_STAGES = " +
+  JSON.stringify(pairStages, null, 1).replace(/\n/g, "\n").replace(/^(\s{2,})"([^"]+)":/gm, (m, i, k) => i + k + ":") +
   ";\n\nwindow.STAGE_REASONS = {};\n";
 fs.writeFileSync(path.join(ROOT, "stage-data.js"), header + body);
 

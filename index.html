@@ -11,6 +11,7 @@
     <h1 class="logo">Dota 2 <span>Контр-пики</span></h1>
     <input id="search" type="text" placeholder="Поиск героя..." autocomplete="off">
     <div class="top-actions">
+      <button id="trainBtn" class="pill-btn" title="Тренировка контр-пиков">Тренировка</button>
       <button id="teamBtn" class="pill-btn" title="Подобрать контр-пики против команды врагов">Против тима</button>
       <div id="source" class="source" title="Источник данных">загрузка…</div>
     </div>
@@ -49,18 +50,28 @@
 
       <div id="poolCounters" class="pool-counters" hidden></div>
 
-      <div class="counters-head">
-        <h2>Контр-пики</h2>
-        <span id="countersMeta" class="counters-meta"></span>
+      <div class="hero-tabs">
+        <button class="htab active" id="tabCounters">Контр-пики</button>
+        <button class="htab" id="tabSynergies">Связки</button>
       </div>
-      <div id="stageFilter" class="filters stage-filter">
-        <button class="chip active" data-stage="">Все</button>
-        <button class="chip" data-stage="line">Линия</button>
-        <button class="chip" data-stage="mid">Мид</button>
-        <button class="chip" data-stage="late">Лейт</button>
+
+      <div id="countersPane">
+        <div class="counters-head">
+          <h2>Контр-пики</h2>
+          <span id="countersMeta" class="counters-meta"></span>
+        </div>
+        <div class="grid counters" id="countersList"></div>
+        <div class="empty" id="noCounters" hidden>Нет данных о контр-пиках</div>
       </div>
-      <div class="grid counters" id="countersList"></div>
-      <div class="empty" id="noCounters" hidden>Нет данных о контр-пиках</div>
+
+      <div id="synergiesPane" hidden>
+        <div class="counters-head">
+          <h2>Связки</h2>
+          <span id="synergiesMeta" class="counters-meta">герои, с которыми герой силён в одной команде</span>
+        </div>
+        <div class="grid counters" id="synergiesList"></div>
+        <div class="empty" id="noSynergies" hidden>Нет данных о связках</div>
+      </div>
     </section>
 
     <section id="teamView" class="hero-view" hidden>
@@ -84,6 +95,36 @@
       </div>
       <div id="teamCounters" class="grid counters"></div>
       <div class="empty" id="teamNoSel" hidden>Сначала выберите вражеских героев</div>
+    </section>
+
+    <section id="trainView" class="hero-view" hidden>
+      <button id="trainBackBtn" class="back-btn">← Все герои</button>
+
+      <div class="team-head">
+        <h2>Тренировка контр-пиков</h2>
+        <span id="trainHint" class="counters-meta">Нажмите «Начать» — появится случайный герой, выберите его контр-пик из списка</span>
+      </div>
+
+      <div id="trainQuiz" hidden>
+        <div class="train-target">
+          <span class="train-label">Кого контрим:</span>
+          <span id="trainTarget" class="train-hero"></span>
+        </div>
+        <div id="trainFeedback" class="train-feedback" hidden></div>
+      </div>
+
+      <div class="team-pick">
+        <h3 id="trainPickTitle">Выберите контр-пик</h3>
+        <input id="trainSearch" type="text" placeholder="Поиск героя..." autocomplete="off">
+        <div class="grid" id="trainPickGrid"></div>
+      </div>
+
+      <div class="counters-head">
+        <h2>Результат</h2>
+        <button id="trainStartBtn" class="pill-btn">Начать</button>
+      </div>
+      <div id="trainResult" class="grid counters"></div>
+      <div class="empty" id="trainNoSel" hidden>Выберите героя-контрпик</div>
     </section>
   </main>
 
@@ -111,11 +152,11 @@
 
   <div id="toast" class="toast" hidden></div>
 
-  <script src="heroes-data.js?v=20260810e"></script>
-  <script src="counters.js?v=20260810e"></script>
-  <script src="stage-data.js?v=20260810e"></script>
-  <script src="stages.js?v=20260810e"></script>
-  <script src="stage-texts.js?v=20260810e"></script>
-  <script src="app.js?v=20260810e"></script>
+  <script src="heroes-data.js?v=20260813a"></script>
+  <script src="counters.js?v=20260813a"></script>
+  <script src="synergies.js?v=20260813a"></script>
+  <script src="stage-data.js?v=20260813a"></script>
+  <script src="stage-texts.js?v=20260813a"></script>
+  <script src="app.js?v=20260813a"></script>
 </body>
 </html>
