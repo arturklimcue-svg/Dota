@@ -102,29 +102,26 @@
 
       <div class="team-head">
         <h2>Тренировка контр-пиков</h2>
-        <span id="trainHint" class="counters-meta">Нажмите «Начать» — появится случайный герой, выберите его контр-пик из списка</span>
+        <span id="trainHint" class="counters-meta">Появится случайный герой — выберите его контр-пик из списка ниже</span>
       </div>
 
-      <div id="trainQuiz" hidden>
+      <div class="train-start-wrap">
+        <button id="trainStartBtn" class="train-start-btn">НАЧАТЬ</button>
+      </div>
+
+      <div id="trainQuiz" class="train-quiz" hidden>
         <div class="train-target">
-          <span class="train-label">Кого контрим:</span>
+          <span class="train-label">Кого контрпикнуть:</span>
           <span id="trainTarget" class="train-hero"></span>
         </div>
         <div id="trainFeedback" class="train-feedback" hidden></div>
       </div>
 
-      <div class="team-pick">
+      <div id="trainPickWrap" class="team-pick" hidden>
         <h3 id="trainPickTitle">Выберите контр-пик</h3>
         <input id="trainSearch" type="text" placeholder="Поиск героя..." autocomplete="off">
         <div class="grid" id="trainPickGrid"></div>
       </div>
-
-      <div class="counters-head">
-        <h2>Результат</h2>
-        <button id="trainStartBtn" class="pill-btn">Начать</button>
-      </div>
-      <div id="trainResult" class="grid counters"></div>
-      <div class="empty" id="trainNoSel" hidden>Выберите героя-контрпик</div>
     </section>
   </main>
 
@@ -152,11 +149,11 @@
 
   <div id="toast" class="toast" hidden></div>
 
-  <script src="heroes-data.js?v=20260813a"></script>
-  <script src="counters.js?v=20260813a"></script>
-  <script src="synergies.js?v=20260813a"></script>
-  <script src="stage-data.js?v=20260813a"></script>
-  <script src="stage-texts.js?v=20260813a"></script>
-  <script src="app.js?v=20260813a"></script>
+  <script src="heroes-data.js?v=20260813b"></script>
+  <script src="counters.js?v=20260813b"></script>
+  <script src="synergies.js?v=20260813b"></script>
+  <script src="stage-data.js?v=20260813b"></script>
+  <script src="stage-texts.js?v=20260813b"></script>
+  <script src="app.js?v=20260813b"></script>
 </body>
 </html>

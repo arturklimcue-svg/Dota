@@ -46,10 +46,8 @@
   const trainFeedbackEl = $("trainFeedback");
   const trainPickTitleEl = $("trainPickTitle");
   const trainSearch = $("trainSearch");
-  const trainPickGridEl = $("trainPickGrid");
   const trainStartBtn = $("trainStartBtn");
-  const trainResultEl = $("trainResult");
-  const trainNoSelEl = $("trainNoSel");
+  const trainPickWrapEl = $("trainPickWrap");
   const modal = $("reasonModal");
   const modalTitle = $("modalTitle");
   const modalStage = $("modalStage");
@@ -915,14 +913,12 @@
     trainSearch.value = "";
     trainQuiz.hidden = true;
     trainFeedbackEl.hidden = true;
-    trainResultEl.innerHTML = "";
-    trainNoSelEl.hidden = false;
+    trainPickWrapEl.hidden = true;
+    trainStartBtn.hidden = false;
+    trainStartBtn.textContent = "НАЧАТЬ";
     trainTarget = null;
     trainAnswered = false;
-    trainPickTitleEl.textContent = "Выберите контр-пик";
-    trainStartBtn.textContent = "Начать";
     window.scrollTo(0, 0);
-    renderTrainPick();
   }
 
   function renderTrainPick() {
@@ -936,7 +932,8 @@
           h.roles.some((r) => r.toLowerCase().includes(q))
       )
       .sort((a, b) => a.ln.toLowerCase().localeCompare(b.ln.toLowerCase(), "ru"));
-    trainPickGridEl.innerHTML = "";
+    const grid = $("trainPickGrid");
+    grid.innerHTML = "";
     list.forEach((h) => {
       const card = document.createElement("div");
       card.className = "hero-card mini-card";
@@ -947,7 +944,7 @@
       img.loading = "lazy";
       card.appendChild(img);
       card.addEventListener("click", () => selectTrainPick(h));
-      trainPickGridEl.appendChild(card);
+      grid.appendChild(card);
     });
   }
 
@@ -989,16 +986,15 @@
     }
     trainTarget = pool[Math.floor(Math.random() * pool.length)];
     trainAnswered = false;
+    trainStartBtn.hidden = true;
     trainQuiz.hidden = false;
     trainFeedbackEl.hidden = true;
-    trainResultEl.innerHTML = "";
-    trainNoSelEl.hidden = true;
-    trainStartBtn.textContent = "Новый герой";
+    trainPickWrapEl.hidden = false;
     trainPickTitleEl.textContent = "Выберите контр-пик для " + trainTarget.ln;
-    trainTargetEl.textContent = trainTarget.ln;
     trainTargetEl.innerHTML =
       '<img src="' + iconUrl(trainTarget.name) + '" alt=""> ' + escapeHtml(trainTarget.ln);
     renderTrainPick();
+    window.scrollTo(0, 0);
   }
 
   function startTrain() {

@@ -505,15 +505,50 @@ main {
 }
 
 /* тренировка */
+.train-start-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0 40px;
+}
+
+.train-start-btn {
+  padding: 18px 64px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #3ddc76, #1fb65b);
+  color: #0b2416;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(49, 196, 106, .45);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+
+.train-start-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 30px rgba(49, 196, 106, .55);
+}
+
+.train-start-btn:active {
+  transform: translateY(0);
+}
+
+.train-quiz {
+  margin-bottom: 18px;
+}
+
 .train-target {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 22px 16px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--panel);
+  text-align: center;
 }
 
 .train-label {
@@ -525,17 +560,17 @@ main {
 .train-hero {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 700;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 800;
   color: var(--text);
 }
 
 .train-hero img {
-  width: 32px;
+  width: 56px;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid var(--line);
 }
 
