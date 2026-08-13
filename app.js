@@ -990,6 +990,10 @@
       trainAnswered = false;
       startTrainRound();
     });
+
+    requestAnimationFrame(() => {
+      trainFeedbackEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
   }
 
   function startTrainRound() {
