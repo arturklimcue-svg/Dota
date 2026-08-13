@@ -47,6 +47,7 @@
   const trainPickTitleEl = $("trainPickTitle");
   const trainSearch = $("trainSearch");
   const trainStartBtn = $("trainStartBtn");
+  const trainTargetBlockEl = $("trainTargetBlock");
   const trainPickWrapEl = $("trainPickWrap");
   const confirmModal = $("confirmModal");
   const confirmBackdrop = $("confirmBackdrop");
@@ -937,6 +938,8 @@
 
     trainAnswered = true;
     trainFeedbackEl.hidden = false;
+    trainPickWrapEl.hidden = true;
+    trainTargetBlockEl.hidden = true;
     trainFeedbackEl.className = "train-feedback " + (isCounter ? "ok" : "bad");
     trainFeedbackEl.innerHTML =
       (isCounter
@@ -972,6 +975,7 @@
     trainStartBtn.hidden = true;
     trainQuiz.hidden = false;
     trainFeedbackEl.hidden = true;
+    trainTargetBlockEl.hidden = false;
     trainPickWrapEl.hidden = false;
     trainPickTitleEl.textContent = "Выберите контр-пик для " + trainTarget.ln;
     trainTargetEl.innerHTML =
