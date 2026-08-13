@@ -48,6 +48,12 @@
   const trainSearch = $("trainSearch");
   const trainStartBtn = $("trainStartBtn");
   const trainPickWrapEl = $("trainPickWrap");
+  const confirmModal = $("confirmModal");
+  const confirmBackdrop = $("confirmBackdrop");
+  const confirmHeroEl = $("confirmHero");
+  const confirmOkBtn = $("confirmOk");
+  const confirmCancelBtn = $("confirmCancel");
+  let pendingPick = null;
   const modal = $("reasonModal");
   const modalTitle = $("modalTitle");
   const modalStage = $("modalStage");
@@ -951,6 +957,17 @@
   function selectTrainPick(pick) {
     if (!trainTarget) return;
     if (trainAnswered) return;
+    pendingPick = pick;
+    confirmHeroEl.innerHTML =
+      '<img src="' + iconUrl(pick.name) + '" alt=""> <b>' + escapeHtml(pick.ln) + '</b>';
+    confirmModal.hidden = false;
+  }
+
+  function confirmPick() {
+    if (!pendingPick) return;
+    const pick = pendingPick;
+    pendingPick = null;
+    confirmModal.hidden = true;
     const name = pick.name;
     const counters = (window.COUNTERS && window.COUNTERS[trainTarget.name]) || [];
     const isCounter = counters.includes(name);
@@ -1047,6 +1064,14 @@
     heroGridEl.hidden = false;
     trainTarget = null;
   });
+
+  function closeConfirm() {
+    confirmModal.hidden = true;
+    pendingPick = null;
+  }
+  confirmOkBtn.addEventListener("click", confirmPick);
+  confirmCancelBtn.addEventListener("click", closeConfirm);
+  confirmBackdrop.addEventListener("click", closeConfirm);
 
   function closeModal() {
     modal.hidden = true;
