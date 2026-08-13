@@ -1,9 +1,9 @@
 // build/gen-stage-texts.js — генерирует объяснения контр-пиков.
 // Тексты берутся из build/kb/countertexts.js (вручную написанные объяснения,
-// формат «за счёт чего контрит и в какой стадии силён»).
+// формат «за счёт чего контрит» — по механике, без привязки к стадии игры).
 // Результат: stage-texts.js (window.STAGE_PAIR_TEXTS — плоская карта
 // «контрящий__контримый» => текст).
-// Запуск: node build/gen-stage-texts.js (после build/stage-counters.js)
+// Запуск: node build/gen-stage-texts.js
 
 const fs = require("fs");
 const path = require("path");
@@ -19,7 +19,7 @@ function readData(file, key) {
 }
 
 const heroes = readData("heroes-data.js", "HEROES");
-const sc = readData("stage-data.js", "STAGE_COUNTERS");
+const counters = readData("counters.js", "COUNTERS");
 
 const byName = {};
 heroes.forEach((h) => (byName[h.name] = h));
@@ -37,15 +37,14 @@ for (const [key, text] of Object.entries(countertexts)) {
   if (!text || !text.length) err("countertexts: пустой текст " + key);
 }
 
-// ---- проверка покрытия всех пар из STAGE_COUNTERS ----
+// ---- проверка покрытия всех пар из COUNTERS ----
 const pairs = new Set();
-for (const t in sc)
-  for (const s of Object.keys(sc[t]))
-    for (const c of sc[t][s]) pairs.add(c + "__" + t);
+for (const t in counters)
+  for (const c of counters[t]) pairs.add(c + "__" + t);
 const missing = [...pairs].filter((p) => !countertexts[p]);
 if (missing.length) err("countertexts: нет текста для " + missing.length + " пар (первые 20: " + missing.slice(0, 20).join(", ") + ")");
 const extra = Object.keys(countertexts).filter((k) => !pairs.has(k));
-if (extra.length) err("countertexts: лишние пары, которых нет в STAGE_COUNTERS: " + extra.join(", "));
+if (extra.length) err("countertexts: лишние пары, которых нет в COUNTERS: " + extra.join(", "));
 
 // ---- вывод ----
 const header =

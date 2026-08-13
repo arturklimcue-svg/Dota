@@ -56,7 +56,6 @@
   let pendingPick = null;
   const modal = $("reasonModal");
   const modalTitle = $("modalTitle");
-  const modalStage = $("modalStage");
   const modalText = $("modalText");
   const modalStat = $("modalStat");
   const teamViewEl = $("teamView");
@@ -75,8 +74,6 @@
   const comparePickEl = $("comparePick");
   const compareResultEl = $("compareResult");
   const toastEl = $("toast");
-
-  const STAGE_LABEL = { line: "Линия", mid: "Мид", late: "Лейт" };
 
   let heroesById = {};
   let dataSource = "Встроенная база";
@@ -142,25 +139,6 @@
   function roleSentence(hero) {
     const r = hero.roles[0];
     return ROLE_CN[r] ? "Сильные стороны: " + ROLE_CN[r] + "." : "";
-  }
-
-  function stageOf(counter, selected) {
-    const st =
-      window.PAIR_STAGES &&
-      window.PAIR_STAGES[counter.name + "__" + selected.name];
-    return st && st.length ? st : ["mid"];
-  }
-
-  function stageBadges(counter, selected) {
-    return stageOf(counter, selected)
-      .map((s) => '<span class="stage-badge stage-' + s + '">' + STAGE_LABEL[s] + "</span>")
-      .join("");
-  }
-
-  function stageDots(counter, selected) {
-    return stageOf(counter, selected)
-      .map((s) => '<i class="dot dot-' + s + '" title="' + STAGE_LABEL[s] + '"></i>')
-      .join("");
   }
 
   function approxWr(enemy, counterName) {
@@ -368,8 +346,7 @@
           return (
             '<button class="pool-item" data-pool="' + escapeHtml(h.name) + '">' +
             '<img src="' + iconUrl(h.name) + '" alt="">' +
-            "<span>" + escapeHtml(h.ln) + "</span>" +
-            '<span class="stage-dots">' + stageDots(h, selected) + "</span></button>"
+            "<span>" + escapeHtml(h.ln) + "</span></button>"
           );
         })
         .join("") +
@@ -438,15 +415,6 @@
       wins: 0,
       approx: true,
     }));
-  }
-
-  function stageItems(selected, stage) {
-    const sc = window.STAGE_COUNTERS;
-    const names = (sc && sc[selected.name] && sc[selected.name][stage]) || [];
-    return names.map((n) => {
-      const hero = byName[n];
-      return hero ? { hero, winrate: approxWr(selected, n), games: 0, wins: 0, approx: true } : null;
-    });
   }
 
   function renderCounters(selected) {
@@ -528,7 +496,6 @@
       "";
     modalTitle.innerHTML =
       "Почему <b>" + escapeHtml(hero.ln) + "</b> силён с <b>" + escapeHtml(partner.ln) + "</b>?";
-    modalStage.innerHTML = "";
     modalText.textContent = text || "Связка не описана.";
     modalStat.textContent = "";
     modal.hidden = false;
@@ -577,9 +544,7 @@
   function reasonFor(counterHero, selected, m) {
     const key = counterHero.name + "__" + selected.name;
     const custom =
-      (window.STAGE_PAIR_TEXTS &&
-        window.STAGE_PAIR_TEXTS[key]) ||
-      (window.STAGE_REASONS && window.STAGE_REASONS[key]) ||
+      (window.STAGE_PAIR_TEXTS && window.STAGE_PAIR_TEXTS[key]) ||
       (window.REASONS && window.REASONS[key]);
     if (custom) return custom;
     const real = liveWinrate(selected, m.hero);
@@ -604,7 +569,6 @@
     const title =
       "Почему <b>" + escapeHtml(m.hero.ln) + "</b> контрит <b>" + escapeHtml(selected.ln) + "</b>?";
     modalTitle.innerHTML = title;
-    modalStage.innerHTML = stageBadges(m.hero, selected);
     modalText.textContent = reasonFor(m.hero, selected, m);
     const real = liveWinrate(selected, m.hero);
     const wr = real
@@ -679,8 +643,7 @@
       row.className = "compare-row";
       row.innerHTML =
         '<img src="' + iconUrl(a.name) + '" alt="">' +
-        "<div><b>" + escapeHtml(a.ln) + "</b> контрит <b>" + escapeHtml(b.ln) + "</b>" +
-        '<div class="stage-badges">' + stageBadges(a, b) + "</div></div>";
+        "<div><b>" + escapeHtml(a.ln) + "</b> контрит <b>" + escapeHtml(b.ln) + "</b></div>";
       row.appendChild(makeWhyBtn(a, b));
       block.appendChild(row);
     }
@@ -689,8 +652,7 @@
       row.className = "compare-row";
       row.innerHTML =
         '<img src="' + iconUrl(b.name) + '" alt="">' +
-        "<div><b>" + escapeHtml(b.ln) + "</b> контрит <b>" + escapeHtml(a.ln) + "</b>" +
-        '<div class="stage-badges">' + stageBadges(b, a) + "</div></div>";
+        "<div><b>" + escapeHtml(b.ln) + "</b> контрит <b>" + escapeHtml(a.ln) + "</b></div>";
       row.appendChild(makeWhyBtn(b, a));
       block.appendChild(row);
     }
