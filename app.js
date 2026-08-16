@@ -49,6 +49,12 @@
   const trainStartBtn = $("trainStartBtn");
   const trainTargetBlockEl = $("trainTargetBlock");
   const trainPickWrapEl = $("trainPickWrap");
+  const trainScoreEl = $("trainScore");
+  const scoreValEl = $("scoreVal");
+  const recordValEl = $("recordVal");
+  const TRAIN_RECORD_KEY = "dcp_train_record";
+  let trainScore = 0;
+  let trainRecord = 0;
   const confirmModal = $("confirmModal");
   const confirmBackdrop = $("confirmBackdrop");
   const confirmHeroEl = $("confirmHero");
@@ -883,6 +889,7 @@
     trainQuiz.hidden = true;
     trainFeedbackEl.hidden = true;
     trainPickWrapEl.hidden = true;
+    trainScoreEl.hidden = true;
     trainStartBtn.hidden = false;
     trainStartBtn.textContent = "НАЧАТЬ";
     trainTarget = null;
@@ -941,6 +948,19 @@
     trainPickWrapEl.hidden = true;
     trainTargetBlockEl.hidden = true;
     trainFeedbackEl.className = "train-feedback " + (isCounter ? "ok" : "bad");
+    if (isCounter) {
+      trainScore += 10;
+    } else {
+      trainScore = 0;
+    }
+    if (trainScore > trainRecord) {
+      trainRecord = trainScore;
+      try {
+        localStorage.setItem(TRAIN_RECORD_KEY, String(trainRecord));
+      } catch (e) {}
+    }
+    scoreValEl.textContent = trainScore;
+    recordValEl.textContent = trainRecord;
     trainFeedbackEl.innerHTML =
       (isCounter
         ? "✅ Верно! <b>" + escapeHtml(pick.ln) + "</b> контрит <b>" + escapeHtml(trainTarget.ln) + "</b>."
@@ -977,6 +997,9 @@
     trainFeedbackEl.hidden = true;
     trainTargetBlockEl.hidden = false;
     trainPickWrapEl.hidden = false;
+    trainScoreEl.hidden = false;
+    scoreValEl.textContent = trainScore;
+    recordValEl.textContent = trainRecord;
     trainPickTitleEl.textContent = "Выберите контр-пик для " + trainTarget.ln;
     trainTargetEl.innerHTML =
       '<img src="' + iconUrl(trainTarget.name) + '" alt=""> ' + escapeHtml(trainTarget.ln);
@@ -1066,5 +1089,9 @@
   initHeroes();
   setupGridFilters();
   applySearch();
+  try {
+    trainRecord = parseInt(localStorage.getItem(TRAIN_RECORD_KEY), 10) || 0;
+  } catch (e) {}
+  recordValEl.textContent = trainRecord;
   setSource();
 })();

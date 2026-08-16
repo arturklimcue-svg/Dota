@@ -72,7 +72,13 @@ window.COUNTERS = {
   "pudge",
   "shadow_demon",
   "storm_spirit",
-  "warlock"
+  "warlock",
+  "abaddon",
+  "oracle",
+  "legion_commander",
+  "drow_ranger",
+  "tidehunter",
+  "doom_bringer"
  ],
  "batrider": [
   "silencer",
@@ -167,7 +173,11 @@ window.COUNTERS = {
   "lina",
   "antimage",
   "enigma",
-  "shredder"
+  "shredder",
+  "axe",
+  "earthshaker",
+  "ancient_apparition",
+  "templar_assassin"
  ],
  "clinkz": [
   "spirit_breaker",
@@ -241,7 +251,11 @@ window.COUNTERS = {
   "riki",
   "weaver",
   "antimage",
-  "puck"
+  "puck",
+  "silencer",
+  "pudge",
+  "nyx_assassin",
+  "night_stalker"
  ],
  "doom_bringer": [
   "sniper",
@@ -375,7 +389,13 @@ window.COUNTERS = {
   "pudge",
   "antimage",
   "storm_spirit",
-  "bounty_hunter"
+  "bounty_hunter",
+  "shredder",
+  "night_stalker",
+  "silencer",
+  "zuus",
+  "spirit_breaker",
+  "skywrath_mage"
  ],
  "huskar": [
   "ancient_apparition",
@@ -587,7 +607,11 @@ window.COUNTERS = {
   "bloodseeker",
   "storm_spirit",
   "nyx_assassin",
-  "skywrath_mage"
+  "skywrath_mage",
+  "night_stalker",
+  "oracle",
+  "drow_ranger",
+  "zuus"
  ],
  "monkey_king": [
   "axe",
@@ -681,7 +705,14 @@ window.COUNTERS = {
   "antimage",
   "pudge",
   "storm_spirit",
-  "riki"
+  "riki",
+  "phoenix",
+  "life_stealer",
+  "oracle",
+  "slark",
+  "phantom_lancer",
+  "chaos_knight",
+  "viper"
  ],
  "omniknight": [
   "antimage",
@@ -735,7 +766,21 @@ window.COUNTERS = {
   "pudge",
   "antimage",
   "storm_spirit",
-  "riki"
+  "riki",
+  "marci",
+  "ursa",
+  "slark",
+  "oracle",
+  "life_stealer",
+  "meepo",
+  "jakiro",
+  "troll_warlord",
+  "weaver",
+  "lone_druid",
+  "abaddon",
+  "juggernaut",
+  "necrolyte",
+  "lina"
  ],
  "primal_beast": [
   "drow_ranger",
@@ -829,7 +874,13 @@ window.COUNTERS = {
   "pudge",
   "storm_spirit",
   "antimage",
-  "skywrath_mage"
+  "skywrath_mage",
+  "rattletrap",
+  "night_stalker",
+  "doom_bringer",
+  "drow_ranger",
+  "spectre",
+  "slark"
  ],
  "sand_king": [
   "slardar",
@@ -847,7 +898,10 @@ window.COUNTERS = {
   "pudge",
   "antimage",
   "storm_spirit",
-  "bounty_hunter"
+  "bounty_hunter",
+  "night_stalker",
+  "skywrath_mage",
+  "doom_bringer"
  ],
  "shadow_shaman": [
   "silencer",
@@ -1042,7 +1096,15 @@ window.COUNTERS = {
   "antimage",
   "riki",
   "pudge",
-  "slardar"
+  "slardar",
+  "shredder",
+  "slark",
+  "batrider",
+  "drow_ranger",
+  "zuus",
+  "bounty_hunter",
+  "night_stalker",
+  "spectre"
  ],
  "troll_warlord": [
   "doom_bringer",
@@ -1096,7 +1158,13 @@ window.COUNTERS = {
   "pudge",
   "antimage",
   "spirit_breaker",
-  "puck"
+  "puck",
+  "abaddon",
+  "oracle",
+  "omniknight",
+  "legion_commander",
+  "life_stealer",
+  "juggernaut"
  ],
  "viper": [
   "sniper",
